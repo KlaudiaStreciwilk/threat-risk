@@ -1,0 +1,19 @@
+
+# Srodowisko wirtualne
+.venv/
+
+# Klucze API i hasla
+.env
+
+# Dane (pobiera sie je skryptami)
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Pliki tymczasowe Pythona
+__pycache__/
+*.pyc
+
+# Ustawienia edytora
+.vscode/
