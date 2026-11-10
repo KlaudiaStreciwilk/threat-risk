@@ -4,7 +4,7 @@ import ipaddress
 
 import tldextract
 
-_tld = tldextract.TLDExtract()
+_tld = tldextract.TLDExtract(suffix_list_urls=())  # lista wbudowana, bez pobierania z internetu
 
 # Naprawa celowo "zepsutych" zapisów, np. evil[.]com, hxxp://
 NAPRAWY = [

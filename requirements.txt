@@ -13,3 +13,4 @@ streamlit
 plotly
 pytest
 tldextract
+requirements.txt
