@@ -12,3 +12,4 @@ pyvis
 streamlit
 plotly
 pytest
+tldextract
