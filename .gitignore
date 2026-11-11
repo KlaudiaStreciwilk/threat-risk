@@ -17,3 +17,4 @@ __pycache__/
 
 # Ustawienia edytora
 .vscode/
+models/
