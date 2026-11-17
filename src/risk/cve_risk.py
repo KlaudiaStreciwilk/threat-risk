@@ -5,7 +5,7 @@ import pandas as pd
 PROC_DIR = "data/processed"
 
 # ===== Parametry algorytmu (wszystko w jednym miejscu) =====
-WAGI_RDZENIA = {"powaga": 0.55, "atak": 0.45}   # podstawa: jak groźna jest dziura i czy zaatakują
+WAGI_RDZENIA = {"powaga": 0.45, "atak": 0.55}   # dobrane na podstawie analizy wrażliwości (krok 5c)  # podstawa: jak groźna jest dziura i czy zaatakują
 WZMOCNIENIE = {"rynek": 0.30, "graf": 0.30}     # kontekst podnosi ryzyko, a jego brak go nie obniża
 WAGI_RYNKU = {"popularnosc": 0.5, "wzmianki": 0.3, "ransomware": 0.2}
 POLOWICZNY_ZANIK_DNI = 30     # co tyle dni czynnik świeżości maleje o połowę

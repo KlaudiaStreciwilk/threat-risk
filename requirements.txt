@@ -13,4 +13,5 @@ streamlit
 plotly
 pytest
 tldextract
+matplotlib
 requirements.txt
