@@ -181,6 +181,9 @@ st.write("Wpisz adres IP, domenę, URL, hash pliku albo identyfikator CVE. "
          "Zapisy typu `evil[.]com` i `hxxp://` są poprawiane automatycznie.")
 
 st.text_input("Czego szukasz?", key="szukaj", placeholder="np. CVE-2024-3400, 45.87.53.10, evil.com")
+# CVE przekazane z rankingu (przycisk "Pokaż szczegóły w wyszukiwarce")
+if "do_wyszukania" in st.session_state:
+    st.session_state["szukaj"] = st.session_state.pop("do_wyszukania")
 
 przyciski = st.columns([1, 2, 2, 2, 2])
 przyciski[0].caption("Przykłady:")
