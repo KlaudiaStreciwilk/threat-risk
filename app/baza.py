@@ -39,3 +39,14 @@ def zapytanie(cypher, **parametry):
     """Wykonuje zapytanie Cypher i zwraca wynik jako tabelę pandas (zapamiętaną na 10 minut)."""
     with polaczenie().session() as s:
         return pd.DataFrame([r.data() for r in s.run(cypher, **parametry)])
+
+
+
+IKONY_POZIOMOW = {"niskie": "🟢", "średnie": "🟡", "wysokie": "🟠", "krytyczne": "🔴"}
+
+
+def etykieta_poziomu(poziom):
+    """Poziom zawsze jako ikona + słowo, żeby nie trzeba było rozróżniać kolorów."""
+    if not poziom:
+        return "brak oceny"
+    return f"{IKONY_POZIOMOW.get(poziom, '')} {poziom}"
