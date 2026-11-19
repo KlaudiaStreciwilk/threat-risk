@@ -81,6 +81,12 @@ def strona_glowna(typ, wartosc):
     sciezka = re.sub(r"^[a-z]+://[^/]+", "", wartosc, flags=re.IGNORECASE)
     return sciezka in ("", "/")
 
+def czy_ukarac(typ, wartosc, popularne):
+    """Kara tylko dla SAMEJ popularnej domeny lub jej strony głównej (booking.com, https://booking.com/),
+    a nie dla subdomen na darmowych serwisach (evil.mooo.com) ani konkretnych linków (github.com/.../malware.zip)."""
+    h = host(typ, wartosc)
+    d = domena_glowna(h)
+    return bool(h) and bool(d) and d in popularne and h in (d, f"www.{d}") and strona_glowna(typ, wartosc)
 
 def zgloszenia():
     """Wszystkie zgłoszenia IoC z ThreatFox i OTX w jednej tabeli."""
@@ -153,12 +159,8 @@ def oblicz_reputacje():
     # Kara tylko dla SAMEJ popularnej domeny lub jej strony głównej (booking.com, https://booking.com/),
     # a nie dla subdomen na darmowych serwisach (evil.mooo.com) ani konkretnych linków (github.com/.../malware.zip)
     popularne = popularne_domeny()
-    hosty = [host(t, v) for t, v in zip(df["type"], df["value"])]
-    df["domena_glowna"] = [domena_glowna(h) for h in hosty]
-    df["popularna_domena"] = [
-        bool(h) and bool(d) and d in popularne and h in (d, f"www.{d}") and strona_glowna(t, v)
-        for h, d, t, v in zip(hosty, df["domena_glowna"], df["type"], df["value"])
-    ]
+    df["domena_glowna"] = [domena_glowna(host(t, v)) for t, v in zip(df["type"], df["value"])]
+    df["popularna_domena"] = [czy_ukarac(t, v, popularne) for t, v in zip(df["type"], df["value"])]
     kara = np.where(df["popularna_domena"], KARA_POPULARNA_DOMENA, 1.0)
 
     wynik = np.minimum(1, rdzen * wzmocnienie / NORMALIZACJA)
